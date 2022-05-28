@@ -1,18 +1,20 @@
 function CardStockAnalyze(props){
+    console.log(props.saItems)
     return (
         <div class="card stockanalyze">
         <div class="card-header">
             <h4>Stock Analyze</h4>
         </div>
         <div class="card-content pb-4">
+            
             {
-                props.items.map((item) => 
+                props.saItems.map((item) => 
                 <div class="recent-message d-flex px-4 py-3">
-                    <div class="avatar bg-warning avatar-xl">
+                    <div class={'avatar avatar-xl ' + item.bgcolor}>
                         <span class="avatar-content">{item.avatar}</span>
                     </div>
                     <div class="name ms-4">
-                        <a class="h5 mt-2 mb-1 analyzetambah btn btn-outline-secondary" href={item.url}>{item.name}</a>
+                        <a class="h5 mt-2 mb-1 analyzetambah btn btn-outline-success" href={item.url}>{item.name}</a>
                     </div>
                 </div>
                 )

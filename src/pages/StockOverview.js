@@ -13,6 +13,11 @@ class Home extends React.Component {
     }
 
     render(){
+        const StockAnalye = [
+            {avatar: 'TA', url: '/technical', name: 'Technical', bgcolor: 'bg-warning'},
+            {avatar: 'MA', url: '/minervini', name: 'Minervini', bgcolor: 'bg-danger'},
+            {avatar: 'CP', url: '/candlestick', name: 'Candlestick', bgcolor: 'bg-success'},
+        ]
         return (
             <React.Fragment>
                 <PageHeading title="Tampilan" breadcrumb="Nganu" link="/" desc="Lorem ipsum dolor sit amet"/>
@@ -40,7 +45,7 @@ class Home extends React.Component {
                         </div>
                         <div class="col-12 col-lg-3">
                             <CardTopRight lastprice="1000" stockcode="IHSG"/>
-                            <CardStockAnalyze items={this.state.stockanalyze} />
+                            <CardStockAnalyze saItems={StockAnalye} />
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Domestic/Foreign Value</h4>

@@ -4,7 +4,7 @@ import './App.css';
 import React from "react"
 import { BrowserRouter } from 'react-router-dom'
 import Sidebar from './components/Sidebar';
-import Home from './pages/home';
+import StockOverview from './pages/StockOverview';
 import Footer from './components/Footer';
 
 class App extends React.Component {
@@ -52,8 +52,6 @@ class App extends React.Component {
 
 
   render(){
-      // console.log('Tinggi : ' + this.state.height + ' Lebar : ' +  this.state.width);
-      // console.log('Dirender ulang ' + this.state.toggleSidebar)
       const SidebarValue = this.state.toggleSidebar
       return (
           <BrowserRouter>
@@ -65,7 +63,7 @@ class App extends React.Component {
                             <i class="bi bi-justify fs-3"></i>
                         </a>
                     </header>
-                    <Home/>
+                    <StockOverview/>
                     <Footer/>
               </div>
             </div>
