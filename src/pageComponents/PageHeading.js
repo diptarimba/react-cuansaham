@@ -8,11 +8,20 @@ class PageHeading extends React.Component {
             title: props.title,
             breadcrumb: props.breadcrumb,
             link: props.link,
-            description: props.desc
+            description: props.desc,
+            listSaham: props.stocklist ?? []
         }
     }
 
     render(){
+        console.log('Data ' + this.props.stocklist.length)
+        var ListSaham = []
+        if(this.state.listSaham.length !== 0){
+            var RawListSaham = this.state.listSaham.data[0].kode_saham.toString().split(",");
+            ListSaham = RawListSaham.map((value) => {
+                return value.slice(1,-1)
+            })
+        }
         return (
             <div class="page-heading">
                 <div class="page-title">
@@ -36,6 +45,7 @@ class PageHeading extends React.Component {
                         <label for="CariSaham" class="form-label">Cari Saham</label>
                         <input class="form-control" list="datalistOptions" id="CariSaham" placeholder="Masukan Kode"/>
                         <datalist id="datalistOptions">
+                            {ListSaham.map((value, key) => <option key={key} value={value}/>)}
                         </datalist>
                     </div>
                     <div class="col-md-3 order-first align-self-end">

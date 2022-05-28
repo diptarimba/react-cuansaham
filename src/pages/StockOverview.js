@@ -6,54 +6,73 @@ import CardOhlc from "../components/subComponent/cardOHLC"
 import CardTopRight from "../components/subComponent/CardTopRight"
 import CardStockAnalyze from "../components/subComponent/CardStockAnalyze"
 import ChartStockOverview from "../components/subComponent/ChartStockOverview"
+import ChartDomesticForeignSO from "../components/subComponent/ChartDomesticForeignSO"
 
 
 class Home extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            stockcode: 'IHSG',
+            stocklist: [],
             pagedata: {
+                'CODE' : 'IHSG',
+                'data' : {
+                    'LAST' : 0,
+                    'OPEN' : 0,
+                    'CLOSE' : 0,
+                    'HIGH' : 0
+                },
                 'chart' : {
                     'T' : [],
                     'C' : []
+                },
+                'pie' : {
+                    'fVal' : 0,
+                    'dVal' : 0
                 }
             }
         }
     }
 
     componentDidMount(){
-        console.log('Percobaan')
-        fetch('https://cors-anywhere.herokuapp.com/https://diptarimba.my.id' + '/?page=Overview&kode=' + this.state.stockcode)
+        fetch('https://cors-anywhere.herokuapp.com/https://diptarimba.my.id' + '/?page=Overview&kode=' + this.state.pagedata.CODE)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ pagedata: data})
-                // console.log(JSON.stringify(data))
             })
             .catch((error)=> {
                 console.log('Terjadi Error ' + error)
             })
+        fetch('https://cors-anywhere.herokuapp.com/https://diptarimba.my.id' + '/?page=listTaData')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Diselesaikan')
+                this.setState({ stocklist: data})
+            })
+            .catch((error) => {
+                console.log('Terjadi Error : ' + error)
+            })
     }
 
     render(){
-        const dataku = this.state.pagedata;
-        console.log('Ini di render ' + JSON.stringify(dataku))
+        const {pagedata} = this.state
         const StockAnalye = [
             {avatar: 'TA', url: '/technical', name: 'Technical', bgcolor: 'bg-warning'},
             {avatar: 'MA', url: '/minervini', name: 'Minervini', bgcolor: 'bg-danger'},
             {avatar: 'CP', url: '/candlestick', name: 'Candlestick', bgcolor: 'bg-success'},
         ]
+        const OHLC = pagedata.data
         return (
             <React.Fragment>
-                <PageHeading title="Tampilan" breadcrumb="Stock Overview" link="/" desc="Lorem ipsum dolor sit amet"/>
+                <PageHeading stocklist={this.state.stocklist} title="Tampilan" breadcrumb="Stock Overview" link="/" desc="Lorem ipsum dolor sit amet"/>
                 <div class="page-content">
                     <section class="row">
                         <div class="col-12 col-lg-9">
                             <div class="row">
-                            <CardOhlc title="Open" value="1000" icon="iconly-boldShow" bgcolor="purple"/>
-                            <CardOhlc title="Last" value="1000" icon="iconly-boldClose-Square" bgcolor="blue"/>
-                            <CardOhlc title="High" value="1000" icon="iconly-boldArrow---Up-Square" bgcolor="green"/>
-                            <CardOhlc title="Low" value="1000" icon="iconly-boldArrow---Down-Square" bgcolor="red"/>
+                            <CardOhlc title="Open" value={OHLC.OPEN ?? 0} icon="iconly-boldShow" bgcolor="purple"/>
+                            <CardOhlc title="Last" value={OHLC.LAST ?? 0} icon="iconly-boldClose-Square" bgcolor="blue"/>
+                            <CardOhlc title="High" value={OHLC.HIGH ?? 0} icon="iconly-boldArrow---Up-Square" bgcolor="green"/>
+                            <CardOhlc title="Low" value={OHLC.LOW ?? 0} icon="iconly-boldArrow---Down-Square" bgcolor="red"/>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -62,22 +81,21 @@ class Home extends React.Component {
                                             <h4>Chart</h4>
                                         </div>
                                         <div class="card-body">
-                                            {/* <div id="chart-profile-visit"></div> */}
-                                            <ChartStockOverview ChartData={this.state.pagedata}/>
+                                            <ChartStockOverview ChartData={pagedata}/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 col-lg-3">
-                            <CardTopRight lastprice="1000" stockcode="IHSG"/>
+                            <CardTopRight lastprice={OHLC.LAST ?? 0} stockcode={pagedata.CODE}/>
                             <CardStockAnalyze saItems={StockAnalye} />
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Domestic/Foreign Value</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div id="chart-visitors-profile"></div>
+                                    <ChartDomesticForeignSO ChartData={pagedata}/>
                                 </div>
                             </div>
                         </div>
