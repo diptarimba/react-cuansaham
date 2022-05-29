@@ -34,15 +34,15 @@ class Sidebar extends React.Component {
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <SidebarSingle link="/" name="Stock Overview" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="Technical Analysis" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="Minervini" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="Candlestick" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="Screener Saham" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="List Saham" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="News" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="Education" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/" name="Contact Me" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/stockoverview" name="Stock Overview" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/technical" name="Technical Analysis" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/minervini" name="Minervini" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/candlestick" name="Candlestick" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/screener" name="Screener Saham" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/stocklist" name="List Saham" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/news" name="News" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/education" name="Education" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/contact" name="Contact Me" icon="bi bi-grid-fill"/>
                     </ul>
                 </div>
             </div>

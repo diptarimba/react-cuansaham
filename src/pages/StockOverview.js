@@ -34,8 +34,8 @@ class Home extends React.Component {
         }
     }
 
-    componentDidMount(){
-        fetch('https://cors-anywhere.herokuapp.com/https://diptarimba.my.id' + '/?page=Overview&kode=' + this.state.pagedata.CODE)
+    getData(){
+        fetch('https://www.diptarimba.my.id' + '/?page=Overview&kode=' + this.state.pagedata.CODE)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ pagedata: data})
@@ -43,7 +43,7 @@ class Home extends React.Component {
             .catch((error)=> {
                 console.log('Terjadi Error ' + error)
             })
-        fetch('https://cors-anywhere.herokuapp.com/https://diptarimba.my.id' + '/?page=listTaData')
+        fetch('https://www.diptarimba.my.id' + '/?page=listTaData')
             .then((response) => response.json())
             .then((data) => {
                 console.log('Diselesaikan')
@@ -54,6 +54,14 @@ class Home extends React.Component {
             })
     }
 
+    componentDidMount(){
+        this.getData()
+    }
+
+    // componentDidUpdate(){
+    //     this.getData()
+    // }
+
     render(){
         const {pagedata} = this.state
         const StockAnalye = [
@@ -62,6 +70,7 @@ class Home extends React.Component {
             {avatar: 'CP', url: '/candlestick', name: 'Candlestick', bgcolor: 'bg-success'},
         ]
         const OHLC = pagedata.data
+        console.log(this.state.stocklist)
         return (
             <React.Fragment>
                 <PageHeading stocklist={this.state.stocklist} title="Tampilan" breadcrumb="Stock Overview" link="/" desc="Lorem ipsum dolor sit amet"/>

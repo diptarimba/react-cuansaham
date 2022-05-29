@@ -4,11 +4,15 @@ import Chart from "react-apexcharts"
 class ChartDomesticForeignSO extends React.Component{
     constructor(props) {
         super(props);
-        console.log(props.ChartData.pie)
-        const PieData = props.ChartData.pie
         this.state = {
-            series: [PieData.dVal, PieData.fVal],
-            option_data: {
+            
+            }
+    }
+
+    render(){
+        const PieData = this.props.ChartData.pie
+        const series= [PieData.dVal, PieData.fVal]
+        const option_data = {
                 labels: ['Domestic', 'Foreign'],
                 colors: ['#55c6e8','#435ebe'],
                 legend: {
@@ -22,12 +26,8 @@ class ChartDomesticForeignSO extends React.Component{
                     }
                 }
             }
-        }
-    }
-
-    render(){
         return (
-            <Chart options={this.state.option_data} series={this.state.series} type='donut'
+            <Chart options={option_data} series={series} type='donut'
             width='100%'
             height='350px'/>
         )

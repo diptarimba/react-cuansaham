@@ -2,10 +2,12 @@
 // import logo from './logo.svg';
 import './App.css';
 import React from "react"
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Sidebar from './components/Sidebar';
 import StockOverview from './pages/StockOverview';
 import Footer from './components/Footer';
+import NotFound from './pages/NotFound';
+import TechnicalAnalysis from './pages/TechnicalAnalysis';
 
 class App extends React.Component {
   constructor(props){
@@ -63,7 +65,11 @@ class App extends React.Component {
                             <i class="bi bi-justify fs-3"></i>
                         </a>
                     </header>
-                    <StockOverview/>
+                    <Routes>
+                      <Route path='/stockoverview' exact element={<StockOverview/>}/>
+                      <Route path='/technical' exact element={<TechnicalAnalysis/>}/>
+                      <Route element={<NotFound/>}/>
+                    </Routes>
                     <Footer/>
               </div>
             </div>

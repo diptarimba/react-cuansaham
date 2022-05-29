@@ -7,8 +7,8 @@ function CardStockAnalyze(props){
         <div class="card-content pb-4">
             
             {
-                props.saItems.map((item) => 
-                <div class="recent-message d-flex px-4 py-3">
+                props.saItems.map((item, key) => 
+                <div key={key} class="recent-message d-flex px-4 py-3">
                     <div class={'avatar avatar-xl ' + item.bgcolor}>
                         <span class="avatar-content">{item.avatar}</span>
                     </div>
