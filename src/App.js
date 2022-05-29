@@ -2,12 +2,17 @@
 // import logo from './logo.svg';
 import './App.css';
 import React from "react"
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import Sidebar from './components/Sidebar';
 import StockOverview from './pages/StockOverview';
 import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 import TechnicalAnalysis from './pages/TechnicalAnalysis';
+
+function Redirect(props){
+  let navigate = useNavigate()
+  return navigate(props.to)
+}
 
 class App extends React.Component {
   constructor(props){
@@ -66,6 +71,7 @@ class App extends React.Component {
                         </a>
                     </header>
                     <Routes>
+                      <Route exact path="/" element={<Redirect to="/stockoverview"/>}/>
                       <Route path='/stockoverview' exact element={<StockOverview/>}/>
                       <Route path='/stockoverview/:kode' exact element={<StockOverview/>}/>
                       <Route path='/technical' exact element={<TechnicalAnalysis/>}/>
