@@ -1,13 +1,13 @@
 /* eslint-disable no-useless-concat */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react"
+import {useParams} from "react-router-dom"
 import PageHeading from "../pageComponents/PageHeading"
 import CardOhlc from "../components/subComponent/cardOHLC"
 import CardTopRight from "../components/subComponent/CardTopRight"
 import CardStockAnalyze from "../components/subComponent/CardStockAnalyze"
 import ChartStockOverview from "../components/subComponent/ChartStockOverview"
 import ChartDomesticForeignSO from "../components/subComponent/ChartDomesticForeignSO"
-
 
 class Home extends React.Component {
     constructor(props){
@@ -43,7 +43,7 @@ class Home extends React.Component {
             .catch((error)=> {
                 console.log('Terjadi Error ' + error)
             })
-        fetch('https://www.diptarimba.my.id' + '/?page=listTaData')
+        fetch('https://www.diptarimba.my.id/?page=listTaData')
             .then((response) => response.json())
             .then((data) => {
                 console.log('Diselesaikan')
@@ -52,17 +52,15 @@ class Home extends React.Component {
             .catch((error) => {
                 console.log('Terjadi Error : ' + error)
             })
+
     }
 
     componentDidMount(){
         this.getData()
     }
 
-    // componentDidUpdate(){
-    //     this.getData()
-    // }
-
     render(){
+        
         const {pagedata} = this.state
         const StockAnalye = [
             {avatar: 'TA', url: '/technical', name: 'Technical', bgcolor: 'bg-warning'},

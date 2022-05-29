@@ -3,6 +3,7 @@
 import React from "react"
 import StuffMA from "../components/subComponent/stuffMA"
 import PageHeading from "../pageComponents/PageHeading"
+import GuideTechnicalAnalysis from "../components/subComponent/GuideTechnicalAnalysis"
 
 class TechnicalAnalysis extends React.Component {
     constructor(props){
@@ -127,6 +128,7 @@ class TechnicalAnalysis extends React.Component {
                         </div>
                     </div>
                 </section>
+                <GuideTechnicalAnalysis />
             </React.Fragment>
         )
     }
