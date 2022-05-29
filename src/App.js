@@ -76,7 +76,8 @@ class App extends React.Component {
                       <Route path='/stockoverview/:kode' exact element={<StockOverview/>}/>
                       <Route path='/technical' exact element={<TechnicalAnalysis/>}/>
                       <Route path='/technical/:kode' exact element={<TechnicalAnalysis/>}/>
-                      <Route element={<NotFound/>}/>
+                      <Route path='*' element={<NotFound/>}/>
+                      {/* <Route element={<NotFound/>}/> */}
                     </Routes>
                     <Footer/>
               </div>

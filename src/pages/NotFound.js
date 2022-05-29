@@ -11,7 +11,13 @@ class NotFound extends React.Component {
 
     render(){
         return (
-            <div>NotFound</div>
+            <div class="page-content">
+                <section class="row">
+                    <div class="col-12 col-lg-9 text-center">
+                        <h1>Page in Develop</h1>
+                    </div>
+                </section>
+            </div>
         )
     }
 }

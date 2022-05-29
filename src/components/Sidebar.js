@@ -13,7 +13,7 @@ class Sidebar extends React.Component {
     }
 
     handleToggleSidebarClick(){
-        console.log(!this.state.toggleSidebar)
+        // console.log(!this.state.toggleSidebar)
         this.props.onValueSidebarChange(!this.state.toggleSidebar)
     }
 

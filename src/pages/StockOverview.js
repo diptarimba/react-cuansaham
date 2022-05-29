@@ -12,7 +12,7 @@ import ChartDomesticForeignSO from "../components/subComponent/ChartDomesticFore
 
 function GetParams(props){
     let kodenya = useParams().kode ?? 'IHSG'
-    console.log(kodenya + ' ' + props.nowCode)
+    // console.log(kodenya + ' ' + props.nowCode)
     if(kodenya.toString().toUpperCase() !== props.nowCode.toString()){
         props.getParamsSaham(kodenya)
     }
@@ -58,6 +58,8 @@ class StockOverview extends React.Component {
         fetch('https://www.diptarimba.my.id/?page=listTaData')
             .then((response) => response.json())
             .then((data) => {
+                // console.log('ini data tadata')
+                // console.log(data)
                 this.setState({ stocklist: data})
             })
             .catch((error) => {
@@ -81,14 +83,14 @@ class StockOverview extends React.Component {
 
     render(){
         const {pagedata} = this.state
-        console.log(pagedata)
+        // console.log(pagedata)
         const StockAnalye = [
             {avatar: 'TA', url: '/technical', name: 'Technical', bgcolor: 'bg-warning'},
             {avatar: 'MA', url: '/minervini', name: 'Minervini', bgcolor: 'bg-danger'},
             {avatar: 'CP', url: '/candlestick', name: 'Candlestick', bgcolor: 'bg-success'},
         ]
         const OHLC = pagedata.data
-        console.log(this.state.stocklist)
+        // console.log(this.state.stocklist)
         return (
             <React.Fragment>
                 <PageHeading UrlTujuan="/stockoverview/" stocklist={this.state.stocklist} title="Stock Overview" breadcrumb="Stock Overview" link="/" desc="Lorem ipsum dolor sit amet"/>

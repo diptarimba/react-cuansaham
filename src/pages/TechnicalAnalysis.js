@@ -8,7 +8,7 @@ import GuideTechnicalAnalysis from "../components/subComponent/GuideTechnicalAna
 
 function GetParams(props){
     let kodenya = useParams().kode ?? 'IHSG'
-    console.log(kodenya + ' ' + props.nowCode)
+    // console.log(kodenya + ' ' + props.nowCode)
     if(kodenya.toString().toUpperCase() !== props.nowCode.toString()){
         props.getParamsSaham(kodenya)
     }
@@ -53,7 +53,7 @@ class TechnicalAnalysis extends React.Component {
         fetch('https://www.diptarimba.my.id/?page=TAData&kode=' + this.state.stockcode)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 this.setState({ TechnicalAnalysisData: data})
             })
             .catch((error) => {
@@ -106,10 +106,10 @@ class TechnicalAnalysis extends React.Component {
         var dataPrice = dataTA.data?.map((value,key) => {
             return value.price
         })
-        console.log(dataTA.data)
+        // console.log(dataTA.data)
         return (
             <React.Fragment>
-                <PageHeading stocklist={this.state.stocklist} title={`$${this.state.stockcode} Technical Analysis`} breadcrumb="Technical Analysis" link="/" desc="Lorem ipsum dolor sit amet"/>
+                <PageHeading UrlTujuan="/technical/" stocklist={this.state.stocklist} title={`$${this.state.stockcode} Technical Analysis`} breadcrumb="Technical Analysis" link="/" desc="Lorem ipsum dolor sit amet"/>
                 <GetParams nowCode={this.state.stockcode} getParamsSaham={this.handleKodeSaham}/>
                 <section class="section">
                     <div class="row" id="basic-table">
