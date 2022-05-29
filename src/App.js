@@ -8,6 +8,7 @@ import StockOverview from './pages/StockOverview';
 import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 import TechnicalAnalysis from './pages/TechnicalAnalysis';
+import LocationChecker from './components/subComponent/LocationChecker'
 
 function Redirect(props){
   let navigate = useNavigate()
@@ -21,11 +22,13 @@ class App extends React.Component {
           toggleSidebar: true,
           content: props.content,
           width: 0,
-          height: 0
+          height: 0,
+          keypage: 'default'
       }
       this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
       this.handleValueSidebarChange = this.handleValueSidebarChange.bind(this)
       this.handleSidebarToggleClick = this.handleSidebarToggleClick.bind(this)
+      this.handleSidebarLocation = this.handleSidebarLocation.bind(this)
   }
 
   componentDidMount() {
@@ -57,11 +60,21 @@ class App extends React.Component {
       }))
   }
 
+  handleSidebarLocation(value){
+    if(this.state.width < 992 && this.state.toggleSidebar === true && this.state.keypage !== value){
+      this.setState(state => ({
+          toggleSidebar: !state.toggleSidebar,
+          keypage: value
+      }))
+    }
+  }
+
 
   render(){
       const SidebarValue = this.state.toggleSidebar
       return (
           <BrowserRouter>
+            <LocationChecker onLocationChange={this.handleSidebarLocation}/>
             <div className="App" onWindow>
               <Sidebar valueSidebar={SidebarValue} onValueSidebarChange={this.handleValueSidebarChange} />
               <div id="main">
