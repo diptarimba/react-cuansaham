@@ -17,8 +17,15 @@ class TechnicalAnalysis extends React.Component {
             tf60: 0,
             tfD: 0
         }
+        this.handleTimeFrameChange = this.handleTimeFrameChange.bind(this)
     }
     componentDidMount(){
+        this.setState({
+            tf5: 0,
+            tf15: 0,
+            tf60: 0,
+            tfD: 0
+        })
         fetch('https://www.diptarimba.my.id/?page=listTaData')
             .then((response) => response.json())
             .then((data) => {
@@ -27,11 +34,9 @@ class TechnicalAnalysis extends React.Component {
             .catch((error) => {
                 console.log('Terjadi Error : ' + error)
             })
-        fetch('https://www.diptarimba.my.id/?page=TAData&kode=IHSG')
+        fetch('https://www.diptarimba.my.id/?page=TAData&kode=' + this.state.stockcode)
             .then((response) => response.json())
             .then((data) => {
-                console.log('ini data' + data)
-                console.log('ini data' + data)
                 this.setState({ TechnicalAnalysisData: data})
             })
             .catch((error) => {
@@ -48,6 +53,26 @@ class TechnicalAnalysis extends React.Component {
                 }, value)
             })
             this.setState({ listTA : listTA} )
+    }
+
+    handleTimeFrameChange(param, value){
+        if(param === 'tf5' && value === true) {
+            this.setState(state => ({
+                tf5: state.tf5 + 0.5
+            }))
+        }else if(param === 'tf15' && value === true){
+            this.setState(state => ({
+                tf15: state.tf15 + 0.5
+            }))
+        }else if(param === 'tf60' && value === true){
+            this.setState(state => ({
+                tf60: state.tf60 + 0.5
+            }))
+        }else if(param === 'tfD' && value === true) {
+            this.setState(state => ({
+                tfD: state.tfD + 0.5
+            }))
+        }
     }
 
     render(){
@@ -77,15 +102,24 @@ class TechnicalAnalysis extends React.Component {
                                                         dataTA.data?.map((value) => (
                                                             <tr>
                                                                 <td>{this.state.listTA[value.technical]}</td>
-                                                                <td><StuffMA tanda={value.tf5_up_ma ? true : false} nilai={value.tf5}/></td>
-                                                                <td><StuffMA tanda={value.tf15_up_ma ? true : false} nilai={value.tf15}/></td>
-                                                                <td><StuffMA tanda={value.tf60_up_ma ? true : false} nilai={value.tf60}/></td>
-                                                                <td><StuffMA tanda={value.tfD_up_ma ? true : false} nilai={value.tfD}/></td>
+                                                                <td><StuffMA tipe="tf5" tanda={value.tf5_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf5}/></td>
+                                                                <td><StuffMA tipe="tf15" tanda={value.tf15_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf15}/></td>
+                                                                <td><StuffMA tipe="tf60" tanda={value.tf60_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf60}/></td>
+                                                                <td><StuffMA tipe="tfD" tanda={value.tfD_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tfD}/></td>
                                                             </tr>
                                                             )
                                                         )
                                                 }
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td>Rekomendasi</td>
+                                                    <td><span>Bullish : {this.state.tf5}<br/>Bearish : {10 - this.state.tf5}<br/>Kesimpulan : {this.state.tf5 > 5 ? 'Beli' : (this.state.tf5 === 5 ? 'Wait n See' : 'Jual')}</span></td>
+                                                    <td><span>Bullish : {this.state.tf15}<br/>Bearish : {10 - this.state.tf15}<br/>Kesimpulan : {this.state.tf15 > 5 ? 'Beli' : (this.state.tf15 === 5 ? 'Wait n See' : 'Jual')}</span></td>
+                                                    <td><span>Bullish : {this.state.tf60}<br/>Bearish : {10 - this.state.tf60}<br/>Kesimpulan : {this.state.tf60 > 5 ? 'Beli' : (this.state.tf60 === 5 ? 'Wait n See' : 'Jual')}</span></td>
+                                                    <td><span>Bullish : {this.state.tfD}<br/>Bearish : {10 - this.state.tfD}<br/>Kesimpulan : {this.state.tfD > 5 ? 'Beli' : (this.state.tfD === 5 ? 'Wait n See' : 'Jual')}</span></td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

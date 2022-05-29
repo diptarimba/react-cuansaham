@@ -21,7 +21,6 @@ class PageHeading extends React.Component {
                 return value.slice(1,-1)
             })
         }
-        console.log(ListSaham)
         return (
             <div class="page-heading">
                 <div class="page-title">
