@@ -35,14 +35,14 @@ class Sidebar extends React.Component {
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <SidebarSingle link="/stockoverview" name="Stock Overview" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/technical" name="Technical Analysis" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/minervini" name="Minervini" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/candlestick" name="Candlestick" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/screener" name="Screener Saham" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/stocklist" name="List Saham" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/news" name="News" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/education" name="Education" icon="bi bi-grid-fill"/>
-                        <SidebarSingle link="/contact" name="Contact Me" icon="bi bi-grid-fill"/>
+                        <SidebarSingle link="/technical" name="Technical Analysis" icon="bi bi-stack"/>
+                        <SidebarSingle link="/minervini" name="Minervini" icon="bi bi-person-circle"/>
+                        <SidebarSingle link="/candlestick" name="Candlestick" icon="bi bi-bar-chart-fill"/>
+                        <SidebarSingle link="/screener" name="Screener Saham" icon="bi bi-filter-square-fill"/>
+                        <SidebarSingle link="/stocklist" name="List Saham" icon="bi bi-lightning-fill"/>
+                        <SidebarSingle link="/news" name="News" icon="bi bi-layers-fill"/>
+                        <SidebarSingle link="/education" name="Education" icon="bi bi-collection-play-fill"/>
+                        <SidebarSingle link="/contact" name="Contact Me" icon="bi bi-collection-fill"/>
                     </ul>
                 </div>
             </div>

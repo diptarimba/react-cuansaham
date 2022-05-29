@@ -1,9 +1,18 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 import React from "react"
+import {useParams} from "react-router-dom"
 import StuffMA from "../components/subComponent/stuffMA"
 import PageHeading from "../pageComponents/PageHeading"
 import GuideTechnicalAnalysis from "../components/subComponent/GuideTechnicalAnalysis"
+
+function GetParams(props){
+    let kodenya = useParams().kode ?? 'IHSG'
+    console.log(kodenya + ' ' + props.nowCode)
+    if(kodenya.toString().toUpperCase() !== props.nowCode.toString()){
+        props.getParamsSaham(kodenya)
+    }
+}
 
 class TechnicalAnalysis extends React.Component {
     constructor(props){
@@ -19,6 +28,7 @@ class TechnicalAnalysis extends React.Component {
             tfD: 0
         }
         this.handleTimeFrameChange = this.handleTimeFrameChange.bind(this)
+        this.handleKodeSaham = this.handleKodeSaham.bind(this)
     }
     componentDidMount(){
         this.setState({
@@ -27,9 +37,14 @@ class TechnicalAnalysis extends React.Component {
             tf60: 0,
             tfD: 0
         })
+        this.getData()
+    }
+
+    getData(){
         fetch('https://www.diptarimba.my.id/?page=listTaData')
             .then((response) => response.json())
             .then((data) => {
+                
                 this.setState({ stocklist: data})
             })
             .catch((error) => {
@@ -38,6 +53,7 @@ class TechnicalAnalysis extends React.Component {
         fetch('https://www.diptarimba.my.id/?page=TAData&kode=' + this.state.stockcode)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data)
                 this.setState({ TechnicalAnalysisData: data})
             })
             .catch((error) => {
@@ -54,6 +70,14 @@ class TechnicalAnalysis extends React.Component {
                 }, value)
             })
             this.setState({ listTA : listTA} )
+    }
+
+    handleKodeSaham(kode){
+        this.setState({
+            stockcode : kode.toUpperCase()
+        }, () => {
+            this.getData()
+        })
     }
 
     handleTimeFrameChange(param, value){
@@ -77,16 +101,22 @@ class TechnicalAnalysis extends React.Component {
     }
 
     render(){
+        
         var dataTA = this.state.TechnicalAnalysisData
+        var dataPrice = dataTA.data?.map((value,key) => {
+            return value.price
+        })
+        console.log(dataTA.data)
         return (
             <React.Fragment>
                 <PageHeading stocklist={this.state.stocklist} title={`$${this.state.stockcode} Technical Analysis`} breadcrumb="Technical Analysis" link="/" desc="Lorem ipsum dolor sit amet"/>
+                <GetParams nowCode={this.state.stockcode} getParamsSaham={this.handleKodeSaham}/>
                 <section class="section">
                     <div class="row" id="basic-table">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title text-center">Last Price : </h4>
+                                    <h4 class="card-title text-center">Last Price : { dataPrice?.[0] }</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -103,10 +133,10 @@ class TechnicalAnalysis extends React.Component {
                                                         dataTA.data?.map((value) => (
                                                             <tr>
                                                                 <td>{this.state.listTA[value.technical]}</td>
-                                                                <td><StuffMA tipe="tf5" tanda={value.tf5_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf5}/></td>
-                                                                <td><StuffMA tipe="tf15" tanda={value.tf15_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf15}/></td>
-                                                                <td><StuffMA tipe="tf60" tanda={value.tf60_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf60}/></td>
-                                                                <td><StuffMA tipe="tfD" tanda={value.tfD_up_ma ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tfD}/></td>
+                                                                <td><StuffMA tipe="tf5" tanda={value.tf5_up_ma === "1" ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf5}/></td>
+                                                                <td><StuffMA tipe="tf15" tanda={value.tf15_up_ma === "1" ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf15}/></td>
+                                                                <td><StuffMA tipe="tf60" tanda={value.tf60_up_ma === "1" ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tf60}/></td>
+                                                                <td><StuffMA tipe="tfD" tanda={value.tfD_up_ma === "1" ? true : false} onValueChange={this.handleTimeFrameChange} nilai={value.tfD}/></td>
                                                             </tr>
                                                             )
                                                         )

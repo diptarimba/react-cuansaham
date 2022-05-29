@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-useless-concat */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react"
@@ -9,11 +10,20 @@ import CardStockAnalyze from "../components/subComponent/CardStockAnalyze"
 import ChartStockOverview from "../components/subComponent/ChartStockOverview"
 import ChartDomesticForeignSO from "../components/subComponent/ChartDomesticForeignSO"
 
-class Home extends React.Component {
+function GetParams(props){
+    let kodenya = useParams().kode ?? 'IHSG'
+    console.log(kodenya + ' ' + props.nowCode)
+    if(kodenya.toString().toUpperCase() !== props.nowCode.toString()){
+        props.getParamsSaham(kodenya)
+    }
+}
+
+class StockOverview extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             stocklist: [],
+            stockcode: 'IHSG',
             pagedata: {
                 'CODE' : 'IHSG',
                 'data' : {
@@ -32,10 +42,12 @@ class Home extends React.Component {
                 }
             }
         }
+        this.handleKodeSaham = this.handleKodeSaham.bind(this)
     }
 
     getData(){
-        fetch('https://www.diptarimba.my.id' + '/?page=Overview&kode=' + this.state.pagedata.CODE)
+        // console.log('Kode Saham ' + this.state.stockcode )
+        fetch('https://www.diptarimba.my.id' + '/?page=Overview&kode=' + this.state.stockcode)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ pagedata: data})
@@ -46,7 +58,6 @@ class Home extends React.Component {
         fetch('https://www.diptarimba.my.id/?page=listTaData')
             .then((response) => response.json())
             .then((data) => {
-                console.log('Diselesaikan')
                 this.setState({ stocklist: data})
             })
             .catch((error) => {
@@ -55,13 +66,22 @@ class Home extends React.Component {
 
     }
 
+    handleKodeSaham(kode){
+        this.setState({
+            stockcode : kode.toUpperCase()
+        }, () => {
+            this.getData()
+        })
+        
+    }
+
     componentDidMount(){
         this.getData()
     }
 
     render(){
-        
         const {pagedata} = this.state
+        console.log(pagedata)
         const StockAnalye = [
             {avatar: 'TA', url: '/technical', name: 'Technical', bgcolor: 'bg-warning'},
             {avatar: 'MA', url: '/minervini', name: 'Minervini', bgcolor: 'bg-danger'},
@@ -71,7 +91,8 @@ class Home extends React.Component {
         console.log(this.state.stocklist)
         return (
             <React.Fragment>
-                <PageHeading stocklist={this.state.stocklist} title="Tampilan" breadcrumb="Stock Overview" link="/" desc="Lorem ipsum dolor sit amet"/>
+                <PageHeading UrlTujuan="/stockoverview/" stocklist={this.state.stocklist} title="Stock Overview" breadcrumb="Stock Overview" link="/" desc="Lorem ipsum dolor sit amet"/>
+                <GetParams nowCode={this.state.stockcode} getParamsSaham={this.handleKodeSaham}/>
                 <div class="page-content">
                     <section class="row">
                         <div class="col-12 col-lg-9">
@@ -95,7 +116,7 @@ class Home extends React.Component {
                             </div>
                         </div>
                         <div class="col-12 col-lg-3">
-                            <CardTopRight lastprice={OHLC.LAST ?? 0} stockcode={pagedata.CODE}/>
+                            <CardTopRight lastprice={OHLC.LAST ?? 0} stockcode={this.state.stockcode}/>
                             <CardStockAnalyze saItems={StockAnalye} />
                             <div class="card">
                                 <div class="card-header">
@@ -113,4 +134,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home
+export default StockOverview
