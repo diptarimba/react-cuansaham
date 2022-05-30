@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/react-cuansaham/static/css/main.c2d1a3cf.css",
-    "main.js": "/react-cuansaham/static/js/main.d7f0e893.js",
+    "main.js": "/react-cuansaham/static/js/main.54ccc6ce.js",
     "static/js/787.3b03e78c.chunk.js": "/react-cuansaham/static/js/787.3b03e78c.chunk.js",
     "index.html": "/react-cuansaham/index.html",
     "main.c2d1a3cf.css.map": "/react-cuansaham/static/css/main.c2d1a3cf.css.map",
-    "main.d7f0e893.js.map": "/react-cuansaham/static/js/main.d7f0e893.js.map",
+    "main.54ccc6ce.js.map": "/react-cuansaham/static/js/main.54ccc6ce.js.map",
     "787.3b03e78c.chunk.js.map": "/react-cuansaham/static/js/787.3b03e78c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c2d1a3cf.css",
-    "static/js/main.d7f0e893.js"
+    "static/js/main.54ccc6ce.js"
   ]
 }
