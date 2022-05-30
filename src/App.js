@@ -23,7 +23,7 @@ class App extends React.Component {
           content: props.content,
           width: 0,
           height: 0,
-          keypage: 'default'
+          keypage: '/stockoverview'
       }
       this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
       this.handleValueSidebarChange = this.handleValueSidebarChange.bind(this)
